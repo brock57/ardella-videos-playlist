@@ -1,6 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow,noarchive">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHBhdGggZD0iTTYgNiBRMzIgMCA1OCA2IEw1MiA1MCBRMzIgNjQgMTIgNTAgWiIgZmlsbD0iI2M4MTAyZSIgc3Ryb2tlPSIjZmZmNmU1IiBzdHJva2Utd2lkdGg9IjMiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48dGV4dCB4PSIzMiIgeT0iNDIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCdUaW1lcyBOZXcgUm9tYW4nLHNlcmlmIiBmb250LXdlaWdodD0iNzAwIiBmb250LXNpemU9IjMwIiBmaWxsPSIjZmZmNmU1Ij41NzwvdGV4dD48L3N2Zz4=">
 <title>Joe Heinz's WWII Letters</title>
 <style>
 :root{--bg:#f6f3ee;--card:#fff;--ink:#2a2622;--mut:#6d655c;--acc:#8a5a2b;--bd:#ddd5ca}
@@ -25,7 +26,7 @@ async function open_(pw,quiet){
   const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:u(S),iterations:N,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);
   const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:u(V)},key,u(D));
   try{if(document.getElementById('rem').checked)localStorage.setItem(K,pw);}catch(e){}
-  const h=new TextDecoder().decode(pt);document.open();document.write(h);document.close();
+  const ic=(document.querySelector('link[rel=icon]')||{}).outerHTML||'';const h=new TextDecoder().decode(pt).replace(/<head[^>]*>/i,m=>m+ic);document.open();document.write(h);document.close();
  }catch(e){try{localStorage.removeItem(K)}catch(_){}m.textContent=quiet?'':'That password didn\'t work. Please try again.';}
 }
 document.getElementById('f').addEventListener('submit',e=>{e.preventDefault();open_(document.getElementById('pw').value)});
